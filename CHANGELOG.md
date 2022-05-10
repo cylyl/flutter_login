@@ -1,3 +1,56 @@
+## 4.0.0-beta.1
+BREAKING CHANGES:
+* Upgraded font_awesome_flutter from v9 to v10
+* Changed from flutter_signin_button to sign_in_button. This changes the enum names.
+
+## 3.2.0
+Features:
+* It is now possible to enable scrolling instead of resizing the login card. You can enable this by setting the `scrollable` parameter to true.
+* The prefix icon of the user/email field now changes depending on the type.
+* Custom sign-in buttons using [flutter_signin_button](https://pub.dev/packages/flutter_signin_button) package is now integrated. See the example app for an example.
+* Add an animation to the termsOfService buttons.
+
+## 3.1.0
+Features:
+* Add children parameter to FlutterLogin which takes a list of widgets that can be added in the
+background of the Login view. For example: a custom banner or a custom logo.
+* Improved footer style
+
+Bugs fixed:
+* The signup confirmation page is now also shown when additionalSignupData is not provided or loginAfterSignUp is disabled. 
+* Back button of confirmSignUp page now returns Login or AdditionalSignUpData page depending on whether additionalSignupData has been provided or not.
+
+
+## 3.0.0
+First stable release of 3.0.0.
+Please see the changelog entries of the beta versions for all changes.
+New features include:
+* Additional signup fields!
+* Confirmation card for password recovery.
+* Confirmation card for user registration.
+
+This release also fixes:
+* White space visible when animation is complete
+* Several other animation improvements
+
+## 3.0.0-beta.2
+Besides the existing loginProvider icons, you can now also add a LoginButton as provider widget.
+Please check out [flutter_signin_button](https://pub.dev/packages/flutter_signin_button) for supported buttons.
+
+BREAKING CHANGES:
+* Provider has been updated to 6.0.1.
+* Instead of hideSignUpButton, you can now set onSignup parameter to null (or just leave it out) in
+order to hide the signup button.
+  
+Fixed several other small bugs like color not being applied correctly to all widgets.
+
+## 3.0.0-beta.1
+You can now add more signup-fields! Please keep in mind that this is a beta release and may still
+contain bugs.
+
+Other features:
+* You can now use an ImageProvider instead of only an AssetImage. [#216](https://github.com/NearHuscarl/flutter_login/pull/216)
+
 ## 2.2.1
 Bug fixes
 * Fixes issue with switch auth button not calculating correct color. [#210](https://github.com/NearHuscarl/flutter_login/pull/210)
