@@ -30,7 +30,7 @@ class AnimatedIconButton extends StatefulWidget {
 class _AnimatedIconButtonState extends State<AnimatedIconButton>
     with SingleTickerProviderStateMixin {
   late Animation<double> _sizeAnimation;
-  late Animation<double> _buttonOpacityAnimation;
+  late Animation<double> _labelLargeOpacityAnimation;
   late Animation<double> _ringThicknessAnimation;
   late Animation<double> _ringOpacityAnimation;
   late Animation<Color?> _colorAnimation;
@@ -52,7 +52,7 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton>
     // _colorAnimation
     // _width, _sizeAnimation
 
-    _buttonOpacityAnimation =
+    _labelLargeOpacityAnimation =
         Tween<double>(begin: 1.0, end: 0.0).animate(CurvedAnimation(
       parent: widget.controller,
       curve: const Threshold(.65),
@@ -82,9 +82,9 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton>
 
   void _updateColorAnimation() {
     final theme = Theme.of(context);
-    final buttonTheme = theme.floatingActionButtonTheme;
+    final labelLargeTheme = theme.floatingActionButtonTheme;
 
-    _color = widget.color ?? buttonTheme.backgroundColor;
+    _color = widget.color ?? labelLargeTheme.backgroundColor;
     _loadingColor = widget.loadingColor ?? theme.colorScheme.secondary;
 
     _colorAnimation = ColorTween(
@@ -130,14 +130,14 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton>
   /// sets width and size animation
   void _updateWidth() {
     final theme = Theme.of(context);
-    final fontSize = theme.textTheme.button!.fontSize!;
+    final fontSize = theme.textTheme.labelLarge!.fontSize!;
     final renderParagraph = RenderParagraph(
       TextSpan(
         text: widget.tooltip,
         style: TextStyle(
           fontSize: fontSize,
-          fontWeight: theme.textTheme.button!.fontWeight,
-          letterSpacing: theme.textTheme.button!.letterSpacing,
+          fontWeight: theme.textTheme.labelLarge!.fontWeight,
+          letterSpacing: theme.textTheme.labelLarge!.letterSpacing,
         ),
       ),
       textDirection: TextDirection.ltr,
@@ -150,7 +150,7 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton>
     var textWidth =
         renderParagraph.getMinIntrinsicWidth(fontSize).ceilToDouble() + 45.0;
 
-    // button width is min 120.0 and max 240.0
+    // labelLarge width is min 120.0 and max 240.0
     _width = textWidth > 120.0 && textWidth < 240.0
         ? textWidth
         : textWidth >= 240.0
@@ -165,28 +165,28 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton>
   }
 
   Widget _buildButton(ThemeData theme) {
-    final buttonTheme = theme.floatingActionButtonTheme;
+    final labelLargeTheme = theme.floatingActionButtonTheme;
     return FadeTransition(
-      opacity: _buttonOpacityAnimation,
+      opacity: _labelLargeOpacityAnimation,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         child: AnimatedBuilder(
           animation: _colorAnimation,
           builder: (context, child) => Material(
-            shape: buttonTheme.shape,
+            shape: labelLargeTheme.shape,
             color: _colorAnimation.value,
             shadowColor: _color,
             elevation: !_isLoading
                 ? (_hover
-                    ? buttonTheme.highlightElevation!
-                    : buttonTheme.elevation!)
+                    ? labelLargeTheme.highlightElevation!
+                    : labelLargeTheme.elevation!)
                 : 0,
             child: child,
           ),
           child: InkWell(
             onTap: !_isLoading ? widget.onPressed as void Function()? : null,
-            splashColor: buttonTheme.splashColor,
-            customBorder: buttonTheme.shape,
+            splashColor: labelLargeTheme.splashColor,
+            customBorder: labelLargeTheme.shape,
             onHighlightChanged: (value) => setState(() => _hover = value),
             child: SizeTransition(
               sizeFactor: _sizeAnimation,
